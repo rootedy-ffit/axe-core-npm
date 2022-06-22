@@ -1,7 +1,7 @@
 {
-  "name": "@axe-core/react",
+  "name": "axe-core-react-ffit",
   "version": "4.4.3",
-  "description": "Dynamic accessibility analysis for React using axe-core",
+  "description": "Dynamic accessibility analysis for React using axe-core, forked by ffit",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -69,10 +69,6 @@
     "sinon": "^13.0.1",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/dequelabs/axe-core-npm.git"
   },
   "jest": {
     "testEnvironment": "jsdom",

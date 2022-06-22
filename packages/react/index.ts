@@ -311,42 +311,44 @@ function addComponent(component: any): void {
  * Log axe violations to console.
  * @param {AxeResults} results
  */
-function logToConsole(results: axeCore.AxeResults): void {
-  console.group('%cNew axe issues', serious);
-  results.violations.forEach(result => {
-    let fmt: string;
-    switch (result.impact) {
-      case 'critical':
-        fmt = critical;
-        break;
-      case 'serious':
-        fmt = serious;
-        break;
-      case 'moderate':
-        fmt = moderate;
-        break;
-      case 'minor':
-        fmt = minor;
-        break;
-      default:
-        fmt = minor;
-        break;
-    }
-    console.groupCollapsed(
-      '%c%s: %c%s %s',
-      fmt,
-      result.impact,
-      defaultReset,
-      result.help,
-      result.helpUrl
-    );
-    result.nodes.forEach(node => {
-      failureSummary(node, 'any');
-      failureSummary(node, 'none');
-    });
-    console.groupEnd();
+ function logToConsole(results) {
+  console.group('%cNew accessibility issues', serious);
+  var critCount = 0;
+  var seriousCount = 0;
+  results.violations.forEach(function (result) {
+      var fmt;
+      switch (result.impact) {
+          case 'critical':
+              critCount++;
+              fmt = critical;
+              break;
+          case 'serious':
+              seriousCount++;
+              fmt = serious;
+              break;
+          case 'moderate':
+              fmt = moderate;
+              break;
+          case 'minor':
+              fmt = minor;
+              break;
+          default:
+              fmt = minor;
+              break;
+      }
+      console.groupCollapsed('%c%s: %c%s %s', fmt, result.impact, defaultReset, result.help, result.helpUrl);
+      result.nodes.forEach(function (node) {
+          failureSummary(node, 'any');
+          failureSummary(node, 'none');
+      });
+      console.groupEnd();
   });
   console.groupEnd();
+  if (critCount || seriousCount) {
+      alert(`You have ${critCount} critical accessibility errors and ${seriousCount} serious accessibility errors on your code. 
+
+Check the browser console to see them.`);
+  }
 }
 
 /**
